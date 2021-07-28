@@ -1,7 +1,7 @@
-const HomePage = () => (
-    <div>
-        <h1>The Home Page</h1>
-    </div>
+const FeaturedEventsPage = () => (
+    <h1>
+        Featured Events
+    </h1>
 )
 
-export default HomePage;
+export default FeaturedEventsPage;
