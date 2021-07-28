@@ -5,20 +5,15 @@ import Button from "../../ui/button/button";
 import DateIcon from "../../icons/date-icon";
 import AddressIcon from "../../icons/address-icon";
 import ArrowRightIcon from "../../icons/arrow-right-icon";
+import Helpers from "../../../lib/utils/helpers";
 
 type Props = {
     event: IEvent;
 }
 
 const EventCard: React.FC<Props> = ({event}) => {
-
-    const displayDate = new Date(event.date).toLocaleDateString('en-US', {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-    });
-
-    const displayAddress = event.location.replace(', ', '\n');
+    const displayDate = Helpers.getDisplayDate(event.date);
+    const displayAddress = Helpers.getDisplayAddress(event.location);
 
     return (
         <li className={styles.item}>
