@@ -1,5 +1,5 @@
 import React from "react";
-import IEvent from "../../../lib/interfaces/event";
+import IEvent from "../../../utils/interfaces/event";
 import EventCard from "../event-card/event-card";
 import styles from './event-list.module.css';
 

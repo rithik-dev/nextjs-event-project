@@ -5,9 +5,7 @@ const FeaturedEventsPage = () => {
     const featuredEvents = getFeaturedEvents();
 
     return (
-        <div>
-            <EventList events={featuredEvents}/>
-        </div>
+        <EventList events={featuredEvents}/>
     )
 }
 

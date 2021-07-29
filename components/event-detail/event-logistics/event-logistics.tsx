@@ -3,7 +3,7 @@ import DateIcon from '../../icons/date-icon';
 import LogisticsItem from '../logistics-item/logistics-item';
 import styles from './event-logistics.module.css';
 import React from "react";
-import Helpers from "../../../lib/utils/helpers";
+import Helpers from "../../../utils/helpers";
 
 type Props = {
     date: string;

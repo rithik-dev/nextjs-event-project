@@ -1,11 +1,11 @@
-import IEvent from "../../../lib/interfaces/event";
+import IEvent from "../../../utils/interfaces/event";
 import React from "react";
 import styles from './event-card.module.css';
 import Button from "../../ui/button/button";
 import DateIcon from "../../icons/date-icon";
 import AddressIcon from "../../icons/address-icon";
 import ArrowRightIcon from "../../icons/arrow-right-icon";
-import Helpers from "../../../lib/utils/helpers";
+import Helpers from "../../../utils/helpers";
 
 type Props = {
     event: IEvent;

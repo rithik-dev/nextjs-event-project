@@ -3,16 +3,21 @@ import React from "react";
 import styles from './button.module.css';
 
 type Props = {
-    link: string;
+    link?: string;
+    onClick?: () => void;
 }
 
-const Button: React.FC<Props> = ({link, children}) => {
+const Button: React.FC<Props> = ({link, onClick, children}) => {
     return (
-        <Link href={link}>
-            <a className={styles.btn}>
+        link ? (
+            <Link href={link}>
+                <a className={styles.btn}>{children}</a>
+            </Link>
+        ) : (
+            <button className={styles.btn} onClick={onClick}>
                 {children}
-            </a>
-        </Link>
+            </button>
+        )
     )
 }
 
