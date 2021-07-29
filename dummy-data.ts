@@ -6,7 +6,7 @@ const DUMMY_EVENTS: Array<IEvent> = [
         title: 'Programming for everyone',
         description:
             'Everyone can learn to code! Yes, everyone! In this live event, we are going to go through all the key basics and get you started with programming as well.',
-        location: 'Somestreet 25, 12345 San Somewhereo',
+        location: 'Some street 25, 12345 San Some where',
         date: '2021-05-12',
         image: '/images/coding-event.jpg',
         isFeatured: false,
@@ -33,23 +33,17 @@ const DUMMY_EVENTS: Array<IEvent> = [
     },
 ];
 
-export function getFeaturedEvents() {
-    return DUMMY_EVENTS.filter((event) => event.isFeatured);
-}
+export const getFeaturedEvents = (): Array<IEvent> => DUMMY_EVENTS.filter((event) => event.isFeatured);
 
-export function getAllEvents() {
-    return DUMMY_EVENTS;
-}
+export const getAllEvents = (): Array<IEvent> => DUMMY_EVENTS;
 
-export function getFilteredEvents(dateFilter: { year: number, month: number }) {
+export const getEventById = (id: string): (IEvent | undefined) => DUMMY_EVENTS.find((event) => event.id === id);
+
+export const getFilteredEvents = (dateFilter: { year: number, month: number }): Array<IEvent> => {
     const {year, month} = dateFilter;
 
     return DUMMY_EVENTS.filter((event) => {
         const eventDate = new Date(event.date);
         return eventDate.getFullYear() === year && eventDate.getMonth() === month - 1;
     });
-}
-
-export function getEventById(id: string) {
-    return DUMMY_EVENTS.find((event) => event.id === id);
 }
