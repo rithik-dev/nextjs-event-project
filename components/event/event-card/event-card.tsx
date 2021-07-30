@@ -6,6 +6,7 @@ import DateIcon from "../../icons/date-icon";
 import AddressIcon from "../../icons/address-icon";
 import ArrowRightIcon from "../../icons/arrow-right-icon";
 import Helpers from "../../../helpers/helpers";
+import Image from "next/image";
 
 type Props = {
     event: IEvent;
@@ -17,8 +18,7 @@ const EventCard: React.FC<Props> = ({event}) => {
 
     return (
         <li className={styles.item}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={event.image} alt={event.title}/>
+            <Image src={event.image} alt={event.title} width={250} height={160}/>
             <div className={styles.content}>
                 <div>
                     <h2>{event.title}</h2>

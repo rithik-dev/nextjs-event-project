@@ -4,6 +4,7 @@ import LogisticsItem from '../logistics-item/logistics-item';
 import styles from './event-logistics.module.css';
 import React from "react";
 import Helpers from "../../../helpers/helpers";
+import Image from "next/image";
 
 type Props = {
     date: string;
@@ -21,8 +22,7 @@ const EventLogistics: React.FC<Props> = (props) => {
     return (
         <section className={styles.logistics}>
             <div className={styles.image}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={image} alt={imageAlt}/>
+                <Image src={image} alt={imageAlt} width={400} height={400}/>
             </div>
             <ul className={styles.list}>
                 <LogisticsItem icon={DateIcon}>
