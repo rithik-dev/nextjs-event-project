@@ -8,16 +8,35 @@ import {EventsRepository} from "../../helpers/repository/events-repository";
 import {GetStaticPaths, GetStaticProps} from "next";
 import IEvent from "../../helpers/interfaces/event";
 import React from "react";
+import Head from "next/head";
 
 type Props = {
     event: IEvent | undefined;
 }
 
 const EventDetailsPage: React.FC<Props> = ({event}) => {
-    if (!event) return (<Alert>Loading...</Alert>)
+    let headData = (
+        <Head>
+            <title>Loading...</title>
+        </Head>
+    )
+    if (!event) return (
+        <>
+            {headData}
+            <Alert>Loading...</Alert>
+        </>
+    )
+
+    headData = (
+        <Head>
+            <title>{event.title}</title>
+            <meta name={'description'} content={event.description}/>
+        </Head>
+    )
 
     return (
         <>
+            {headData}
             <EventSummary title={event.title}/>
             <EventLogistics
                 date={event.date}

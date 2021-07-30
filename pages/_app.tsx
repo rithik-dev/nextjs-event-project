@@ -6,6 +6,7 @@ import Layout from "../components/layout/layout";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import Router from "next/router";
+import Head from "next/head";
 
 NProgress.configure({
     minimum: 0.35,
@@ -20,6 +21,11 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
 const MyApp = ({Component, pageProps}: AppProps) => (
     <Layout>
+        <Head>
+            <title>NextEvents</title>
+            <meta name={'description'} content={'All your events in one place.'}/>
+            <meta name={'viewport'} content={'initial-scale=1.0, width=device-width'}/>
+        </Head>
         <Component {...pageProps}/>
     </Layout>
 )
