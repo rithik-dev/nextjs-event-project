@@ -9,6 +9,7 @@ import {GetStaticPaths, GetStaticProps} from "next";
 import IEvent from "../../helpers/interfaces/event";
 import React from "react";
 import Head from "next/head";
+import Comments from "../../components/input/comments";
 
 type Props = {
     event: IEvent | undefined;
@@ -47,6 +48,7 @@ const EventDetailsPage: React.FC<Props> = ({event}) => {
             <EventContent>
                 <p>{event.description}</p>
             </EventContent>
+            <Comments eventId={event.id}/>
         </>
     )
 }

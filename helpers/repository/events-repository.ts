@@ -26,15 +26,15 @@ export class EventsRepository {
         return events.find((event) => event.id === id);
     }
 
-    static getFilteredEvents = async (dateFilter: { year: number, month: number }): Promise<Array<IEvent>> => {
-        const events = await EventsRepository.getAllEvents();
-        const {year, month} = dateFilter;
-
-        return events.filter((event) => {
-            const eventDate = new Date(event.date);
-            return eventDate.getFullYear() === year && eventDate.getMonth() === month - 1;
-        });
-    }
+    // static getFilteredEvents = async (dateFilter: { year: number, month: number }): Promise<Array<IEvent>> => {
+    //     const events = await EventsRepository.getAllEvents();
+    //     const {year, month} = dateFilter;
+    //
+    //     return events.filter((event) => {
+    //         const eventDate = new Date(event.date);
+    //         return eventDate.getFullYear() === year && eventDate.getMonth() === month - 1;
+    //     });
+    // }
 
     static filterEvents = (data: { events: Array<IEvent>, filter: { year: number, month: number } }): Array<IEvent> => {
         const {year, month} = data.filter;
