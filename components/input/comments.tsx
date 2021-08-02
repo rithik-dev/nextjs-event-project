@@ -21,6 +21,7 @@ const Comments: React.FC<Props> = ({eventId}) => {
                 setComments(comments);
             }
         })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showComments])
 
     const toggleCommentsHandler = () => {

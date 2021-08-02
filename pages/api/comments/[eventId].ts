@@ -1,39 +1,50 @@
 // noinspection JSUnusedGlobalSymbols
 
 import {NextApiRequest, NextApiResponse} from "next";
-import IComment from "../../../helpers/interfaces/comment";
+import {connectDatabase, getAllComments, insertDocument} from "../../../helpers/db-util";
+import {MongoClient} from "mongodb";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+
+    let client: MongoClient;
+
+    try {
+        client = await connectDatabase();
+    } catch (error) {
+        return res.status(500).json({message: 'Connecting to the database failed'});
+    }
+
     switch (req.method) {
         case 'GET':
-            return await getComments(req, res);
+            await getComments(req, res, client);
+            break;
         case 'POST':
-            return await addComment(req, res);
+            await addComment(req, res, client);
+            break;
+    }
+    await client.close();
+}
+
+const getComments = async (req: NextApiRequest, res: NextApiResponse, client: MongoClient) => {
+    const eventId = req.query.eventId as string;
+    try {
+        const comments = await getAllComments(client, 'comments', eventId);
+        return res.status(200).json(JSON.stringify(comments));
+    } catch (error) {
+        return res.status(500).json({message: 'Getting comments failed'});
     }
 }
 
-const getComments = async (req: NextApiRequest, res: NextApiResponse) => {
-    const comments: Array<IComment> = [
-        {
-            id: 'c1',
-            name: 'Max',
-            email: 'max987@gmail.com',
-            text: 'This course is amazing.',
-        },
-        {
-            id: 'c2',
-            name: 'James',
-            email: 'james12@gmail.com',
-            text: 'The course instructor is even better.',
-        },
-    ];
-    return res.status(200).json(JSON.stringify(comments));
-}
-
-const addComment = async (req: NextApiRequest, res: NextApiResponse) => {
+const addComment = async (req: NextApiRequest, res: NextApiResponse, client: MongoClient) => {
     const comment = JSON.parse(req.body);
-    comment.id = new Date().toDateString();
-    return res.status(201).json({comment, message: `Comment ${comment.text} added.`})
+    comment.eventId = req.query.eventId;
+    try {
+        const result = await insertDocument(client, 'comments', comment);
+        comment._id = result.insertedId;
+        return res.status(201).json({comment, message: `Comment ${comment.text} added.`})
+    } catch (error) {
+        return res.status(500).json({message: 'Inserting data failed'});
+    }
 }
 
 export default handler;
