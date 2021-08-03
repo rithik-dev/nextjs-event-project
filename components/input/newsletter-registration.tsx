@@ -1,10 +1,13 @@
 // noinspection JSUnusedGlobalSymbols
 
 import styles from './newsletter-registration.module.css';
-import React, {useRef} from "react";
+import React, {useContext, useRef} from "react";
+import NotificationContext from "../../store/notification-context";
+import {Status} from "../../helpers/interfaces/notification";
 
 const NewsletterRegistration = () => {
     const emailInputRef = useRef<HTMLInputElement>(null);
+    const notificationCtx = useContext(NotificationContext);
 
     const registrationHandler = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -13,11 +16,36 @@ const NewsletterRegistration = () => {
         const enteredEmail = emailInputRef.current!.value;
 
         // send valid data to API
-        const data = await (await fetch('/api/newsletter', {
-            method: 'POST',
-            body: JSON.stringify({email: enteredEmail}),
-        })).json();
-        console.log(data);
+        notificationCtx.showNotification({
+            title: `Signing up: ${enteredEmail}`,
+            message: 'Registering for newsletter',
+            status: Status.pending,
+        });
+
+        try {
+            const response = await fetch('/api/newsletter', {
+                method: 'POST',
+                body: JSON.stringify({email: enteredEmail}),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                notificationCtx.showNotification({
+                    title: `Success`,
+                    message: 'Successfully registered for newsletter',
+                    status: Status.success,
+                });
+            } else {
+                // noinspection ExceptionCaughtLocallyJS
+                throw new Error(data?.message || 'Something went wrong');
+            }
+        } catch (error) {
+            notificationCtx.showNotification({
+                title: `Error!`,
+                message: error?.message || 'Something went wrong',
+                status: Status.error,
+            });
+        }
     }
 
     return (
