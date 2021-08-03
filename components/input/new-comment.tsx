@@ -60,7 +60,7 @@ const NewComment: React.FC<Props> = ({onAddComment}) => {
                 <textarea id='comment' rows={5} ref={commentInputRef}/>
             </div>
             {isInvalid && <p>Please enter a valid email address and comment!</p>}
-            <button>Submit</button>
+            <button className={styles.button}>Submit</button>
         </form>
     );
 }
