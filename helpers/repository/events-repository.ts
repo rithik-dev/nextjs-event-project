@@ -1,7 +1,7 @@
 import IEvent from "../interfaces/event";
 
 export class EventsRepository {
-    static readonly BASE_URL = `${process.env.FIREBASE_BASE_URL}events.json`;
+    static readonly BASE_URL = `${process.env.NEXT_PUBLIC_FIREBASE_BASE_URL}events.json`;
 
     static transformMapToArray = (events: any): Array<IEvent> => {
         const eventsAsArray = Array<IEvent>();
